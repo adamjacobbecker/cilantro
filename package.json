@@ -10,6 +10,9 @@
   "author": "adamjacobbecker",
   "license": "MIT",
   "dependencies": {
-    "zombie": "*"
+    "zombie": "*",
+    "cheerio": "*",
+    "underscore": "*",
+    "moment": "*"
   }
 }

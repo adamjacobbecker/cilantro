@@ -1,0 +1,10 @@
+Accounts:
+  Name
+  Updated_at
+  Balance
+  Transactions
+    id
+    name
+    amount
+    date
+
