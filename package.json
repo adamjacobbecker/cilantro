@@ -1,0 +1,15 @@
+{
+  "name": "cilantro",
+  "version": "0.0.0",
+  "description": "",
+  "main": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "",
+  "author": "adamjacobbecker",
+  "license": "MIT",
+  "dependencies": {
+    "zombie": "*"
+  }
+}
