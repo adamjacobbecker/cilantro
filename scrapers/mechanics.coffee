@@ -65,10 +65,13 @@ module.exports = (accountConfig, useDevMode, cb) ->
         $ = cheerio.load(browser.response.body)
 
         $("form[name=accountHistory] .S_stack").each (index, el) ->
+
+          rawDate = $(this).find("tr").eq(0).find("td").eq(0).text()
+
           transaction =
             amount: $(this).find("tr").eq(0).find("td").eq(1).text()
             name: $(this).find("tr").eq(1).find("td").eq(0).find("a").text()
-            date: $(this).find("tr").eq(0).find("td").eq(0).text()
+            date: if rawDate is "Pending" then Date.now() else moment(rawDate, "DD-MM-YYYY").unix()
 
           account.transactions.push transaction
 
