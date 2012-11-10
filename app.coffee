@@ -4,9 +4,10 @@ http = require 'http'
 path = require 'path'
 mongoose = require 'mongoose'
 
+global.DB = mongoose.createConnection('localhost', 'cilantro')
+
 app = express()
 app.set("trust proxy", true)
-
 
 app.configure ->
   app.set('port', process.env.PORT || 3000)
