@@ -1,0 +1,30 @@
+#nav li.active a {
+  background-color: #ddd;
+}
+#nav li.active a span {
+  color: #444;
+}
+#nav li.active a i.icon-chevron-right {
+  opacity: 1;
+  -ms-filter: none;
+  filter: none;
+}
+#nav li a {
+  padding: 15px 30px 15px 15px;
+  position: relative;
+}
+#nav li a span {
+  float: right;
+  color: #aaa;
+}
+#nav li a i.icon-chevron-right {
+  position: absolute;
+  top: 17px;
+  right: 8px;
+  opacity: 0.25;
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=25);
+  filter: alpha(opacity=25);
+}
+#search-wrapper {
+  padding-bottom: 20px;
+}

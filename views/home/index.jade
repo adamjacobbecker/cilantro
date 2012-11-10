@@ -1,0 +1,57 @@
+extends ../layout
+
+block content
+
+  .row-fluid
+    .span3
+      ul.nav.nav-tabs.nav-stacked#nav
+        li.active
+          a(href="#")
+            | Mechanics Bank
+            span $125.40
+            i.icon-chevron-right
+        li
+          a(href="#")
+            | Paypal
+            span $14,301.20
+            i.icon-chevron-right
+        li
+          a(href="#")
+            | REI Visa
+            span $91.30
+            i.icon-chevron-right
+
+    .span9
+      div#search-wrapper
+        input.search-query.pull-right(type="text", placeholder="Search Transactions...")
+        .clearfix
+
+      table.table.table-striped
+        thead
+          tr
+            th Account
+            th Name
+            th Amount
+            th Date
+
+        tbody
+          tr
+            td Mechanic's Bank
+            td ATM Surcharge fee at 0129 Internaioal
+            td $0.59
+            td 8/2/12
+          tr
+            td Mechanic's Bank
+            td ATM Surcharge fee at 0129 Internaioal
+            td $0.59
+            td 8/2/12
+          tr
+            td Mechanic's Bank
+            td ATM Surcharge fee at 0129 Internaioal
+            td $0.59
+            td 8/2/12
+          tr
+            td Mechanic's Bank
+            td ATM Surcharge fee at 0129 Internaioal
+            td $0.59
+            td 8/2/12
