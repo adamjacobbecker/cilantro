@@ -12,4 +12,4 @@ accountSchema = new mongoose.Schema
   balance: Number
   transactions: [transactionSchema]
 
-module.exports = DB.model('Account', bizSchema)
+module.exports = DB.model('Account', accountSchema)
