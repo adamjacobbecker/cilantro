@@ -1,15 +1,20 @@
 {
   "name": "cilantro",
   "version": "0.0.0",
-  "description": "",
-  "main": "",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "engines": {
+    "node": ">= 0.5.0",
+    "npm": "1.1.x"
   },
-  "repository": "",
-  "author": "adamjacobbecker",
-  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "node server"
+  },
   "dependencies": {
+    "coffee-script": "*",
+    "express": "3.0.0rc3",
+    "jade": "*",
+    "stylus": "*",
+    "mongoose": ">=3.1.1",
     "zombie": "*",
     "cheerio": "*",
     "underscore": "*",
