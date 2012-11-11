@@ -1,6 +1,7 @@
 Account = require('../models').account
 Transaction = require('../models').transaction
 moment = require 'moment'
+fs = require 'fs'
 
 exports.index = (req, res) ->
   res.render("home/index")
@@ -48,6 +49,9 @@ exports.sync = (req, res) ->
 
   for account in accounts
     do ->
-      scraper = require "../scrapers/#{account.file}"
-      scraper(account, useDevMode, saveResults)
+      if useDevMode
+        saveResults(JSON.parse(fs.readFileSync("scrapers/example_output/#{account.file}.json", 'utf-8')))
+      else
+        scraper = require "../scrapers/#{account.file}"
+        scraper(account, saveResults)
 

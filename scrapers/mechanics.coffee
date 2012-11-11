@@ -1,12 +1,9 @@
-fs = require 'fs'
 Browser = require 'zombie'
 cheerio = require 'cheerio'
 _ = require 'underscore'
 moment = require 'moment'
 
-module.exports = (accountConfig, useDevMode, cb) ->
-
-  if useDevMode then return cb(JSON.parse(fs.readFileSync('scrapers/example_output/mechanics.json', 'utf-8')))
+module.exports = (accountConfig, cb) ->
 
   browser = new Browser
     debug: true
