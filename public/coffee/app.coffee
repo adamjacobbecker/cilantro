@@ -42,6 +42,17 @@ AppView = Backbone.View.extend
     Transactions.bind 'reset', @reset, @
     Transactions.bind 'all', @render, @
 
+    $("#update-accounts-button").click ->
+      el = $(this)
+      el.addClass 'updating'
+
+      $.ajax
+        url: "/sync?dev=true"
+        type: "GET"
+        success: (data) ->
+          Transactions.reset(data.transactions)
+
+
   reset: ->
     $("#transactions-tbody").html('')
     @addAll()

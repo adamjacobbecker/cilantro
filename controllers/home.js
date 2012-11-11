@@ -14,14 +14,16 @@
 
   exports.index = function(req, res) {
     return Account.find({}, function(err, accounts) {
-      var lastUpdated, total;
+      var accountsJson, lastUpdated, total;
       total = 0;
       lastUpdated = 0;
+      accountsJson = [];
       _.each(accounts, function(account) {
         total = total + account.balance;
         if (account.updated_at > lastUpdated) {
-          return lastUpdated = account.updated_at;
+          lastUpdated = account.updated_at;
         }
+        return accountsJson.push(account.toObject());
       });
       return Transaction.find().populate('_account').exec(function(err, transactions) {
         var transactionsJson;
@@ -30,7 +32,7 @@
           return transactionsJson.push(transaction.toObject());
         });
         return res.render("home/index", {
-          accounts: accounts,
+          accounts: JSON.stringify(accountsJson),
           total: "$" + total,
           transactions: JSON.stringify(transactionsJson),
           lastUpdated: lastUpdated
@@ -68,7 +70,10 @@
       saveResults = function(results) {
         var result;
         if (results.length === 0) {
-          return res.send("Done!");
+          return res.send({
+            accounts: Account.find(),
+            transactions: Transaction.find().populate('_account')
+          });
         }
         result = results.shift();
         return Account.findOneAndUpdate({

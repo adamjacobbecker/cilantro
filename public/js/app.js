@@ -36,7 +36,19 @@
     initialize: function() {
       Transactions.bind('add', this.addOne, this);
       Transactions.bind('reset', this.reset, this);
-      return Transactions.bind('all', this.render, this);
+      Transactions.bind('all', this.render, this);
+      return $("#update-accounts-button").click(function() {
+        var el;
+        el = $(this);
+        el.addClass('updating');
+        return $.ajax({
+          url: "/sync?dev=true",
+          type: "GET",
+          success: function(data) {
+            return Transactions.reset(data.transactions);
+          }
+        });
+      });
     },
     reset: function() {
       $("#transactions-tbody").html('');
