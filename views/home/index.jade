@@ -1,6 +1,7 @@
 extends ../layout
 
 block content
+  //- pre #{JSON.stringify(transactions, null, 2)}
 
   .row-fluid
     .span4
@@ -17,7 +18,7 @@ block content
 
       div.last-updated
         | Last updated #{lastUpdated}
-        a.btn.btn-primary.updating#update-accounts-button
+        a.btn.btn-primary#update-accounts-button
           i.icon-refresh.icon-white
 
     .span8
@@ -28,15 +29,10 @@ block content
       table.table.table-striped.transactions-table
         thead
           tr
-            th Account
-            th Name
-            th Amount
-            th Date
+            th(width="20%") Account
+            th(width="40%") Name
+            th(width="20%") Amount
+            th(width="20%") Date
 
-        tbody
-          each transaction in transactions
-            tr
-              td #{transaction._account.name}
-              td #{transaction.name}
-              td.amount(class="#{transaction.amount > 0 ? 'positive' : 'negative'}") #{transaction.amount_pretty}
-              td #{transaction.date}
+        tbody#transactions-tbody
+          | <script>$(function(){ new Cilantro.App(!{transactions}) });</script>

@@ -13,11 +13,16 @@ exports.index = (req, res) ->
       total = total + account.balance
       if account.updated_at > lastUpdated then lastUpdated = account.updated_at
 
-    res.render "home/index",
-      accounts: accounts
-      total: "$#{total}"
-      transactions: Transaction.find().populate('_account')
-      lastUpdated: lastUpdated
+    Transaction.find().populate('_account').exec (err, transactions) ->
+      transactionsJson = []
+      _.each transactions, (transaction) ->
+        transactionsJson.push transaction.toObject()
+
+      res.render "home/index",
+        accounts: accounts
+        total: "$#{total}"
+        transactions: JSON.stringify(transactionsJson)
+        lastUpdated: lastUpdated
 
 exports.sync = (req, res) ->
   accounts = require '../accounts'
