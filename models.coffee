@@ -25,7 +25,10 @@ transactionSchema = new mongoose.Schema
   date: Date
 
 transactionSchema.virtual('amount_pretty').get ->
-  return "$#{this.amount.toFixed(2)}"
+  if this.amount > 0
+    return "$#{this.amount.toFixed(2)}"
+  else
+    return "-$#{Math.abs(this.amount).toFixed(2)}"
 
 exports.account = DB.model('Account', accountSchema)
 exports.transaction = DB.model('Transaction', transactionSchema)

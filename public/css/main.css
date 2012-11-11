@@ -28,3 +28,19 @@
 #search-wrapper {
   padding-bottom: 20px;
 }
+.transactions-table td.amount {
+  min-width: 80px;
+}
+.transactions-table td.amount.positive {
+  color: #008000;
+}
+.transactions-table td.amount.negative {
+  color: #f00;
+}
+#update-accounts-button.updating i {
+  -webkit-transform: rotate(30deg);
+  -moz-transform: rotate(30deg);
+  -o-transform: rotate(30deg);
+  -ms-transform: rotate(30deg);
+  transform: rotate(30deg);
+}

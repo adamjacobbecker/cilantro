@@ -8,14 +8,16 @@ exports.index = (req, res) ->
   Account.find {}, (err, accounts) ->
 
     total = 0
+    lastUpdated = 0
     _.each accounts, (account) ->
-      console.log account.balance
       total = total + account.balance
+      if account.updated_at > lastUpdated then lastUpdated = account.updated_at
 
     res.render "home/index",
       accounts: accounts
       total: "$#{total}"
       transactions: Transaction.find().populate('_account')
+      lastUpdated: lastUpdated
 
 exports.sync = (req, res) ->
   accounts = require '../accounts'

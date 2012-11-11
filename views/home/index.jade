@@ -15,12 +15,17 @@ block content
             span #{total}
             i.icon-chevron-right
 
+      div.last-updated
+        | Last updated #{lastUpdated}
+        a.btn.btn-primary.updating#update-accounts-button
+          i.icon-refresh.icon-white
+
     .span8
       div#search-wrapper
         input.search-query.pull-right(type="text", placeholder="Search Transactions...")
         .clearfix
 
-      table.table.table-striped
+      table.table.table-striped.transactions-table
         thead
           tr
             th Account
@@ -33,5 +38,5 @@ block content
             tr
               td #{transaction._account.name}
               td #{transaction.name}
-              td #{transaction.amount_pretty}
-              td 8/2/12
+              td.amount(class="#{transaction.amount > 0 ? 'positive' : 'negative'}") #{transaction.amount_pretty}
+              td #{transaction.date}

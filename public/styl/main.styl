@@ -28,3 +28,19 @@
 
 #search-wrapper
   padding-bottom 20px
+
+.transactions-table
+  td.amount
+    min-width 80px
+
+    &.positive
+      color green
+
+    &.negative
+      color red
+
+#update-accounts-button
+  &.updating
+    i
+      transform(rotate(30deg))
+      // keyframe animation
