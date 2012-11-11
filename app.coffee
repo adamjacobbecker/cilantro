@@ -4,6 +4,8 @@ http = require 'http'
 path = require 'path'
 mongoose = require 'mongoose'
 
+require 'express-mongoose'
+
 global.DB = mongoose.createConnection('localhost', 'cilantro')
 
 app = express()

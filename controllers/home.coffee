@@ -2,10 +2,20 @@ Account = require('../models').account
 Transaction = require('../models').transaction
 moment = require 'moment'
 fs = require 'fs'
+_ = require 'underscore'
 
 exports.index = (req, res) ->
-  res.render("home/index")
+  Account.find {}, (err, accounts) ->
 
+    total = 0
+    _.each accounts, (account) ->
+      console.log account.balance
+      total = total + account.balance
+
+    res.render "home/index",
+      accounts: accounts
+      total: "$#{total}"
+      transactions: Transaction.find().populate('_account')
 
 exports.sync = (req, res) ->
   accounts = require '../accounts'
@@ -28,26 +38,26 @@ exports.sync = (req, res) ->
     , (err, transaction) ->
       parseTransactions(account, transactions, results)
 
-  saveResults = (results) ->
-    if results.length is 0 then return res.send("Done!")
-
-    result = results.shift()
-
-    Account.findOneAndUpdate
-      name: result.name
-    ,
-      balance: parseFloat(result.balance.replace(",", ""))
-      updated_at: Date.now()
-    ,
-      upsert: true
-
-    , (err, account) ->
-      parseTransactions(account, result.transactions, results)
-
 
   useDevMode = if req.param('dev') then true else false
 
   for account in accounts
+    saveResults = (results) ->
+      if results.length is 0 then return res.send("Done!")
+
+      result = results.shift()
+
+      Account.findOneAndUpdate
+        name: result.name
+      ,
+        balance: parseFloat(result.balance.replace(",", ""))
+        updated_at: Date.now()
+      ,
+        upsert: true
+
+      , (err, account) ->
+        parseTransactions(account, result.transactions, results)
+
     do ->
       if useDevMode
         saveResults(JSON.parse(fs.readFileSync("scrapers/example_output/#{account.file}.json", 'utf-8')))

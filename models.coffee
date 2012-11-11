@@ -3,8 +3,14 @@ mongoose = require 'mongoose'
 accountSchema = new mongoose.Schema
   name: String
   updated_at: Date
-  balance: Number
+  balance:
+    type: Number
+    set: (n) ->
+      return parseFloat(n.replace(",", ""))
   transactions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Transaction' }]
+
+accountSchema.virtual('balance_pretty').get ->
+  return "$#{this.balance.toFixed(2)}"
 
 transactionSchema = new mongoose.Schema
   _account:
@@ -12,8 +18,14 @@ transactionSchema = new mongoose.Schema
     ref: 'Account'
   bank_id: String
   name: String
-  amount: Number
+  amount:
+    type: Number
+    set: (n) ->
+      return parseFloat(n.replace(",", ""))
   date: Date
+
+transactionSchema.virtual('amount_pretty').get ->
+  return "$#{this.amount.toFixed(2)}"
 
 exports.account = DB.model('Account', accountSchema)
 exports.transaction = DB.model('Transaction', transactionSchema)
