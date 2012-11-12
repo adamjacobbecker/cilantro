@@ -50,8 +50,8 @@ Cilantro.AppView = Backbone.View.extend
     html = """
       <li>
         <a href="/">
-          All Accounts
-          <span>#{balance}</span>
+          <span class="account-name">All Accounts</span>
+          <span class="account-balance">#{balance}</span>
           <i class="icon-chevron-right"></i>
         </a>
       </li>

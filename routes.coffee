@@ -1,8 +1,8 @@
 exports.init = (app) ->
-  app.get('/', require('./controller').index)
-  app.get('/account/:id', require('./controller').index) # backbone
+  app.get('/', require('./controllers/home').index)
+  app.get('/account/:id', require('./controllers/home').index) # backbone
 
 
-  app.get('/sync', require('./controller').sync)
-  app.get('/transactions', require('./controller').transactions)
-  app.get('/accounts', require('./controller').accounts)
+  app.get('/sync', require('./controllers/home').sync)
+  app.get('/transactions', require('./controllers/transactions').index)
+  app.get('/accounts', require('./controllers/accounts').index)

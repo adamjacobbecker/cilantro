@@ -1,31 +1,12 @@
-Account = require('./models').account
-Transaction = require('./models').transaction
-moment = require 'moment'
+Account = require('../models').account
+Transaction = require('../models').transaction
 fs = require 'fs'
-_ = require 'underscore'
 
 exports.index = (req, res) ->
-  Account.find {}, (err, accounts) ->
-
-    total = 0
-    lastUpdated = 0
-    # accountsJson = []
-    _.each accounts, (account) ->
-      total = total + account.balance
-      if account.updated_at > lastUpdated then lastUpdated = account.updated_at
-      # accountsJson.push account.toObject()
-
-    Transaction.find().populate('_account').exec (err, transactions) ->
-      # transactionsJson = []
-      # _.each transactions, (transaction) ->
-      #   transactionsJson.push transaction.toObject()
-
-      res.render "home/index",
-        total: "$#{total}"
-        lastUpdated: lastUpdated
+  res.render "home/index"
 
 exports.sync = (req, res) ->
-  accounts = require './accounts'
+  accounts = require '../accounts'
 
   parseTransactions = (account, transactions, results) ->
     if transactions.length is 0 then return saveResults(results)
@@ -53,7 +34,7 @@ exports.sync = (req, res) ->
       if results.length is 0
         return res.send
           accounts: Account.find()
-          transactions: Transaction.find().populate('_account')
+          transactions: Transaction.json(if req.param('account_id') then {_account: req.param('account_id')})
 
 
       result = results.shift()
@@ -73,11 +54,5 @@ exports.sync = (req, res) ->
       if useDevMode
         saveResults(JSON.parse(fs.readFileSync("scrapers/example_output/#{account.file}.json", 'utf-8')))
       else
-        scraper = require "./scrapers/#{account.file}"
+        scraper = require "../scrapers/#{account.file}"
         scraper(account, saveResults)
-
-exports.transactions = (req, res) ->
-  res.send Transaction.json(if req.param('account_id') then {_account: req.param('account_id')})
-
-exports.accounts = (req, res) ->
-  res.send Account.find()

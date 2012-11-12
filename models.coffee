@@ -5,6 +5,7 @@ moment = require 'moment'
 accountSchema = new mongoose.Schema
   name: String
   updated_at: Date
+  nickname: String
   balance:
     type: Number
     set: (n) ->
