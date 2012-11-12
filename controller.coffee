@@ -77,7 +77,7 @@ exports.sync = (req, res) ->
         scraper(account, saveResults)
 
 exports.transactions = (req, res) ->
-  res.send Transaction.find().populate('_account')
+  res.send Transaction.find(if req.param('account_id') then {_account: req.param('account_id')}).populate('_account')
 
 exports.accounts = (req, res) ->
   res.send Account.find()

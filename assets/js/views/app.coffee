@@ -19,8 +19,8 @@ Cilantro.AppView = Backbone.View.extend
           Cilantro.Transactions.reset(data.transactions)
           Cilantro.Accounts.reset(data.accounts)
 
-    Cilantro.Transactions.fetch()
     Cilantro.Accounts.fetch()
+
 
   reset: ->
     $("#transactions-tbody").html('')
@@ -28,7 +28,7 @@ Cilantro.AppView = Backbone.View.extend
     @addAll()
 
   render: ->
-    #
+    if $("#accounts-list li.active").length is 0 then Cilantro.setActiveNav()
 
   addOneTransaction: (transaction) ->
     view = new Cilantro.TransactionView({model: transaction})
@@ -46,7 +46,7 @@ Cilantro.AppView = Backbone.View.extend
       balance += a.attributes.balance
     html = """
       <li>
-        <a href="#">
+        <a href="/">
           All Accounts
           <span>#{balance}</span>
           <i class="icon-chevron-right"></i>
