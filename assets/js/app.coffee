@@ -34,3 +34,6 @@ $(document).on "click", "#update-accounts-button", ->
     success: (data) ->
       Cilantro.Transactions.reset(data.transactions)
       Cilantro.Accounts.reset(data.accounts)
+
+$(document).on "click", "[data-toggle=flipper]", ->
+  $(this).closest(".flip-container").toggleClass("flipped")

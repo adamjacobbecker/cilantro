@@ -4,14 +4,18 @@ block content
 
   .row-fluid
     .span3
-      .flip
-        .side-a
-          ul.nav.nav-tabs.nav-stacked#accounts-list
+      .flip-container
+        .flipper
+          .front
+            ul.nav.nav-tabs.nav-stacked#accounts-list
 
-          div.last-updated#update-accounts-wrapper
+            div.last-updated#update-accounts-wrapper
 
-        .side-b
-          ul#accounts-admin-list
+          .back
+            ul#accounts-admin-list
+
+            a.btn(data-toggle="flipper")
+              i.icon-info-sign
 
     .span9
       div#search-wrapper
