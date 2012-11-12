@@ -3,12 +3,12 @@ extends ../layout
 block content
 
   .row-fluid
-    .span4
+    .span3
       ul.nav.nav-tabs.nav-stacked#accounts-list
 
       div.last-updated#update-accounts-wrapper
 
-    .span8
+    .span9
       div#search-wrapper
         input.search-query.pull-right(type="text", placeholder="Search Transactions...")
         .clearfix
@@ -16,9 +16,9 @@ block content
       table.table.table-striped.transactions-table
         thead
           tr
-            th(width="20%") Account
-            th(width="40%") Name
-            th(width="20%") Amount
-            th(width="20%") Date
+            th Account
+            th Name
+            th Amount
+            th Date
 
         tbody#transactions-tbody

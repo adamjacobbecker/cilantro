@@ -3,7 +3,7 @@ Cilantro.TransactionView = Backbone.View.extend
 
   template: _.template """
     <td><%= _account.name %></td>
-    <td><%= name %></td>
+    <td class="name"><%= name %></td>
     <td class="amount <%= amount > 0 ? 'positive' : 'negative' %>"><%= amount_pretty %></td>
     <td><%= date_pretty %></td>
   """
