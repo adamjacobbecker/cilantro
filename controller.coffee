@@ -25,7 +25,7 @@ exports.index = (req, res) ->
         lastUpdated: lastUpdated
 
 exports.sync = (req, res) ->
-  accounts = require '../accounts'
+  accounts = require './accounts'
 
   parseTransactions = (account, transactions, results) ->
     if transactions.length is 0 then return saveResults(results)

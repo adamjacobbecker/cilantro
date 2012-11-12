@@ -1,6 +1,9 @@
 Cilantro.AppView = Backbone.View.extend
 
   initialize: ->
+    Cilantro.Accounts.bind 'add', @addOneAccount, @
+    Cilantro.Accounts.bind 'reset', @reset, @
+    Cilantro.Accounts.bind 'all', @render, @
     Cilantro.Transactions.bind 'add', @addOneTransaction, @
     Cilantro.Transactions.bind 'reset', @reset, @
     Cilantro.Transactions.bind 'all', @render, @
@@ -14,6 +17,7 @@ Cilantro.AppView = Backbone.View.extend
         type: "GET"
         success: (data) ->
           Cilantro.Transactions.reset(data.transactions)
+          Cilantro.Accounts.reset(data.accounts)
 
     Cilantro.Transactions.fetch()
     Cilantro.Accounts.fetch()
