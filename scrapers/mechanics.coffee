@@ -70,7 +70,6 @@ module.exports = (accountConfig, cb) ->
             name: $(this).find("tr").eq(1).find("td").eq(0).find("a").text()
             date: if rawDate is "Pending" then Date.now() else moment(rawDate, "MM-DD-YYYY").unix() * 1000
 
-          console.log transaction
           account.transactions.push transaction
 
         accounts.push account
