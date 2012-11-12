@@ -61,6 +61,8 @@ exports.sync = (req, res) ->
 
     for scraper in preference.scrapers
 
+      if req.param('match') and scraper.file.indexOf(req.param('match')) is -1 then continue
+
       _.each scraper, (val, key) ->
         if key is "file" then return val
 
