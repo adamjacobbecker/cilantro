@@ -5,16 +5,7 @@ block content
 
   .row-fluid
     .span4
-      ul.nav.nav-tabs.nav-stacked#nav
-        //- each account in accounts
-        //-   li
-        //-     a(href="#") #{account.name}
-        //-       span #{account.balance_pretty}
-        //-       i.icon-chevron-right
-        li.active
-          a(href="#") All Accounts
-            span #{total}
-            i.icon-chevron-right
+      ul.nav.nav-tabs.nav-stacked#accounts-list
 
       div.last-updated
         | Last updated #{lastUpdated}

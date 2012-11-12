@@ -1,5 +1,5 @@
-Account = require('../models').account
-Transaction = require('../models').transaction
+Account = require('./models').account
+Transaction = require('./models').transaction
 moment = require 'moment'
 fs = require 'fs'
 _ = require 'underscore'
@@ -76,3 +76,8 @@ exports.sync = (req, res) ->
         scraper = require "../scrapers/#{account.file}"
         scraper(account, saveResults)
 
+exports.transactions = (req, res) ->
+  res.send Transaction.find().populate('_account')
+
+exports.accounts = (req, res) ->
+  res.send Account.find()
