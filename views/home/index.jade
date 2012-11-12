@@ -6,11 +6,11 @@ block content
   .row-fluid
     .span4
       ul.nav.nav-tabs.nav-stacked#nav
-        each account in accounts
-          li
-            a(href="#") #{account.name}
-              span #{account.balance_pretty}
-              i.icon-chevron-right
+        //- each account in accounts
+        //-   li
+        //-     a(href="#") #{account.name}
+        //-       span #{account.balance_pretty}
+        //-       i.icon-chevron-right
         li.active
           a(href="#") All Accounts
             span #{total}
@@ -35,4 +35,4 @@ block content
             th(width="20%") Date
 
         tbody#transactions-tbody
-          | <script>$(function(){ new Cilantro.App(!{transactions}) });</script>
+          | <script>$(function(){ new Cilantro.App() });</script>

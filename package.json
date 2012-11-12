@@ -10,6 +10,7 @@
     "start": "node server"
   },
   "dependencies": {
+    "connect-assets": "*",
     "coffee-script": "*",
     "express": "3.0.0rc3",
     "jade": "*",

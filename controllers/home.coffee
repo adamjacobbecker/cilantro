@@ -9,21 +9,19 @@ exports.index = (req, res) ->
 
     total = 0
     lastUpdated = 0
-    accountsJson = []
+    # accountsJson = []
     _.each accounts, (account) ->
       total = total + account.balance
       if account.updated_at > lastUpdated then lastUpdated = account.updated_at
-      accountsJson.push account.toObject()
+      # accountsJson.push account.toObject()
 
     Transaction.find().populate('_account').exec (err, transactions) ->
-      transactionsJson = []
-      _.each transactions, (transaction) ->
-        transactionsJson.push transaction.toObject()
+      # transactionsJson = []
+      # _.each transactions, (transaction) ->
+      #   transactionsJson.push transaction.toObject()
 
       res.render "home/index",
-        accounts: JSON.stringify(accountsJson)
         total: "$#{total}"
-        transactions: JSON.stringify(transactionsJson)
         lastUpdated: lastUpdated
 
 exports.sync = (req, res) ->
