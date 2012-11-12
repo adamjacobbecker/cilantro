@@ -1,7 +1,8 @@
 Cilantro.Account = Backbone.Model.extend
   # validate: (attrs) ->
 
-  # defaults: ->
+  defaults: ->
+    nickname: ""
 
   clear: ->
     @destroy()

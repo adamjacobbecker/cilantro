@@ -13,6 +13,7 @@
     "connect-assets": "*",
     "coffee-script": "*",
     "express": "3.0.0rc3",
+    "express-resource": "*",
     "jade": "*",
     "stylus": "*",
     "mongoose": ">=3.1.1",

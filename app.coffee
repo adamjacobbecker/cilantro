@@ -6,6 +6,7 @@ mongoose = require 'mongoose'
 moment = require 'moment'
 
 require 'express-mongoose'
+require 'express-resource'
 
 global.DB = mongoose.createConnection('localhost', 'cilantro')
 

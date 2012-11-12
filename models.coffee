@@ -53,5 +53,20 @@ transactionSchema.statics.json = (filters) ->
 
   return promise
 
+accountSchema.statics.json = (filters) ->
+  promise = new mongoose.Promise()
+
+  this.find(filters || {})
+      .exec (err, accounts) ->
+
+    returnArray = []
+
+    _.each accounts, (account) ->
+      returnArray.push account.toObject({getters: true})
+
+    promise.complete(returnArray)
+
+  return promise
+
 exports.account = DB.model('Account', accountSchema)
 exports.transaction = DB.model('Transaction', transactionSchema)
