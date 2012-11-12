@@ -1,16 +1,17 @@
 $ ->
   new Cilantro.AppView({dev: true})
 
-$(document).on "click", "a[href^='/']", (event) ->
+$(document).on "click", "a[href^='/']", (e) ->
 
-  href = $(event.currentTarget).attr('href')
+  href = $(e.currentTarget).attr('href')
 
   # chain 'or's for other black list routes
-  passThrough = href.indexOf('sign_out') >= 0
+  # passThrough = href.indexOf('sign_out') >= 0
+  passThrough = false
 
   # Allow shift+click for new tabs, etc.
-  if !passThrough && !event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey
-    event.preventDefault()
+  if !passThrough && !e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey
+    e.preventDefault()
 
     # Remove leading slashes and hash bangs (backward compatablility)
     url = href.replace(/^\//,'').replace('\#\!\/','')
@@ -19,3 +20,17 @@ $(document).on "click", "a[href^='/']", (event) ->
     Cilantro.Router.navigate url, { trigger: true }
 
     return false
+
+
+$(document).on "click", "#update-accounts-button", ->
+  el = $(this)
+  el.addClass 'updating'
+
+  $.ajax
+    url: "/sync"
+    type: "GET"
+    data:
+      if Cilantro.dev then dev: true
+    success: (data) ->
+      Cilantro.Transactions.reset(data.transactions)
+      Cilantro.Accounts.reset(data.accounts)
