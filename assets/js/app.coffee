@@ -27,7 +27,7 @@ $(document).on "click", "#update-accounts-button", ->
   el.addClass 'updating'
 
   $.ajax
-    url: "/sync"
+    url: "/sync?encryption_key=asdf"
     type: "GET"
     data:
       if Cilantro.dev then dev: true
@@ -37,3 +37,15 @@ $(document).on "click", "#update-accounts-button", ->
 
 $(document).on "click", "[data-toggle=flipper]", ->
   $(this).closest(".flip-container").toggleClass("flipped")
+
+$(document).on "submit", "#new-scraper-form", (e) ->
+  e.preventDefault()
+
+  Cilantro.Scrapers.create
+    file: $(this).find("select[name=file]").val()
+    username: $(this).find("input[name=username]").val()
+    password: $(this).find("input[name=password]").val()
+    answer1: $(this).find("input[name=answer1]").val()
+    answer2: $(this).find("input[name=answer2]").val()
+    answer3: $(this).find("input[name=answer3]").val()
+    encryption_key: $(this).find("input[name=encryption_key]").val()

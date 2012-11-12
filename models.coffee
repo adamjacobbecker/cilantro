@@ -2,6 +2,8 @@ mongoose = require 'mongoose'
 _ = require 'underscore'
 moment = require 'moment'
 
+###### Account #######
+
 accountSchema = new mongoose.Schema
   name: String
   updated_at: Date
@@ -14,6 +16,24 @@ accountSchema = new mongoose.Schema
 
 accountSchema.virtual('balance_pretty').get ->
   return "$#{this.balance.toFixed(2)}"
+
+accountSchema.statics.json = (filters) ->
+  promise = new mongoose.Promise()
+
+  this.find(filters || {})
+      .exec (err, accounts) ->
+
+    returnArray = []
+
+    _.each accounts, (account) ->
+      returnArray.push account.toObject({getters: true})
+
+    promise.complete(returnArray)
+
+  return promise
+
+
+###### Transaction ######
 
 transactionSchema = new mongoose.Schema
   _account:
@@ -53,20 +73,29 @@ transactionSchema.statics.json = (filters) ->
 
   return promise
 
-accountSchema.statics.json = (filters) ->
+
+###### Preference ######
+
+preferenceSchema = new mongoose.Schema
+  encrypted_encryption_key: String
+  scrapers: []
+
+preferenceSchema.statics.findOrCreate = (cb) ->
   promise = new mongoose.Promise()
+  Preference = this
 
-  this.find(filters || {})
-      .exec (err, accounts) ->
+  this.findOne (err, preference) ->
+    if preference
+      if cb then return cb(preference) else promise.complete(preference)
+    else
+      preference = new Preference
+      preference.save (err) ->
+        if cb then return cb(preference) else promise.complete(preference)
 
-    returnArray = []
+  if !cb then return promise
 
-    _.each accounts, (account) ->
-      returnArray.push account.toObject({getters: true})
-
-    promise.complete(returnArray)
-
-  return promise
+###### EXPORTS #######
 
 exports.account = DB.model('Account', accountSchema)
 exports.transaction = DB.model('Transaction', transactionSchema)
+exports.preference = DB.model('Preference', preferenceSchema)

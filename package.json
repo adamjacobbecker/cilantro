@@ -21,6 +21,7 @@
     "zombie": "*",
     "cheerio": "*",
     "underscore": "*",
-    "moment": "*"
+    "moment": "*",
+    "node_hash": "*"
   }
 }

@@ -12,10 +12,29 @@ block content
             div.last-updated#update-accounts-wrapper
 
           .back
+            h3 accounts
+
             ul#accounts-admin-list
 
             a.btn(data-toggle="flipper")
               i.icon-info-sign
+
+            h3 scrapers
+
+            ul#scrapers-list
+
+            h5 Add Scraper
+            form#new-scraper-form
+              select(name="file")
+                each scraper in scrapers
+                  option(val="#{scraper}") #{scraper}
+              input(type="text", name="username", placeholder="Username", autocomplete="off")
+              input(type="password", name="password", placeholder="Password", autocomplete="off")
+              input(type="text", name="answer1", placeholder="Answer 1", autocomplete="off")
+              input(type="text", name="answer2", placeholder="Answer 2", autocomplete="off")
+              input(type="text", name="answer3", placeholder="Answer 3", autocomplete="off")
+              input(type="password", name="encryption_key", placeholder="Cilantro passphrase", autocomplete="off")
+              button.btn.btn-primary Save
 
     .span9
       div#search-wrapper

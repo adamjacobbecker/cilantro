@@ -1,0 +1,19 @@
+extends ../layout
+
+block content
+
+  .row-fluid
+    .well.span6.offset3
+      p Looks like this is your first time here. Let's set an encryption key for the passwords that you're storing.
+
+      form.big-form(method="POST")
+        input(type="password", name="key", placeholder="Enter a passphrase")
+        input(type="password", name="key_confirm", placeholder="Enter it again")
+
+        button.btn.btn-primary Let's go!
+
+      :coffeescript
+        $ ->
+          $("form").submit (e) ->
+            if !$("input[name=key]").val() or $("input[name=key]").val() isnt $("input[name=key_confirm]").val()
+              e.preventDefault()
