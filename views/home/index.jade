@@ -1,16 +1,12 @@
 extends ../layout
 
 block content
-  //- pre #{JSON.stringify(transactions, null, 2)}
 
   .row-fluid
     .span4
       ul.nav.nav-tabs.nav-stacked#accounts-list
 
-      div.last-updated
-        | Last updated #{lastUpdated}
-        a.btn.btn-primary#update-accounts-button
-          i.icon-refresh.icon-white
+      div.last-updated#update-accounts-wrapper
 
     .span8
       div#search-wrapper

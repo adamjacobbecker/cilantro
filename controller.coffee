@@ -73,11 +73,11 @@ exports.sync = (req, res) ->
       if useDevMode
         saveResults(JSON.parse(fs.readFileSync("scrapers/example_output/#{account.file}.json", 'utf-8')))
       else
-        scraper = require "../scrapers/#{account.file}"
+        scraper = require "./scrapers/#{account.file}"
         scraper(account, saveResults)
 
 exports.transactions = (req, res) ->
-  res.send Transaction.find(if req.param('account_id') then {_account: req.param('account_id')}).populate('_account')
+  res.send Transaction.json(if req.param('account_id') then {_account: req.param('account_id')})
 
 exports.accounts = (req, res) ->
   res.send Account.find()

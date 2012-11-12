@@ -3,6 +3,7 @@ routes = require './routes'
 http = require 'http'
 path = require 'path'
 mongoose = require 'mongoose'
+moment = require 'moment'
 
 require 'express-mongoose'
 
@@ -29,6 +30,9 @@ app.configure 'development', ->
   app.use(express.errorHandler())
 
 routes.init(app)
+
+app.locals.timeAgo = (t) ->
+  moment(t).fromNow()
 
 http.createServer(app).listen app.get('port'), ->
   console.log("Express server listening on port " + app.get('port'))

@@ -1,5 +1,5 @@
 $ ->
-  new Cilantro.AppView()
+  new Cilantro.AppView({dev: true})
 
 $(document).on "click", "a[href^='/']", (event) ->
 

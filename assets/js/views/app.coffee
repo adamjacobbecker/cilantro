@@ -8,19 +8,22 @@ Cilantro.AppView = Backbone.View.extend
     Cilantro.Transactions.bind 'reset', @reset, @
     Cilantro.Transactions.bind 'all', @render, @
 
-    $("#update-accounts-button").click ->
+    Cilantro.Accounts.fetch()
+
+    Cilantro.dev = @options.dev
+
+    $(document).on "click", "#update-accounts-button", ->
       el = $(this)
       el.addClass 'updating'
 
       $.ajax
-        url: "/sync?dev=true"
+        url: "/sync"
         type: "GET"
+        data:
+          if Cilantro.dev then dev: true
         success: (data) ->
           Cilantro.Transactions.reset(data.transactions)
           Cilantro.Accounts.reset(data.accounts)
-
-    Cilantro.Accounts.fetch()
-
 
   reset: ->
     $("#transactions-tbody").html('')
@@ -55,7 +58,19 @@ Cilantro.AppView = Backbone.View.extend
     """
     $("#accounts-list").append(html)
 
+  addUpdateAccountsWrapper: ->
+    html = """
+      Last updated #{moment(Cilantro.Accounts.lastUpdated()).fromNow()} &nbsp;
+      <a class="btn btn-primary" id="update-accounts-button">
+        <i class="icon-refresh icon-white"></i>
+      </a>
+    """
+
+    $("#update-accounts-wrapper").html(html)
+
+
   addAll: ->
     Cilantro.Transactions.each @addOneTransaction
     Cilantro.Accounts.each @addOneAccount
     @addAccountTotal()
+    @addUpdateAccountsWrapper()

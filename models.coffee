@@ -1,4 +1,6 @@
 mongoose = require 'mongoose'
+_ = require 'underscore'
+moment = require 'moment'
 
 accountSchema = new mongoose.Schema
   name: String
@@ -29,6 +31,26 @@ transactionSchema.virtual('amount_pretty').get ->
     return "$#{this.amount.toFixed(2)}"
   else
     return "-$#{Math.abs(this.amount).toFixed(2)}"
+
+transactionSchema.virtual('date_pretty').get ->
+  moment(this.date).fromNow()
+
+transactionSchema.statics.json = (filters) ->
+  promise = new mongoose.Promise()
+
+  this.find(filters || {})
+      .populate('_account')
+      .sort('-date')
+      .exec (err, transactions) ->
+
+    returnArray = []
+
+    _.each transactions, (transaction) ->
+      returnArray.push transaction.toObject({getters: true})
+
+    promise.complete(returnArray)
+
+  return promise
 
 exports.account = DB.model('Account', accountSchema)
 exports.transaction = DB.model('Transaction', transactionSchema)
