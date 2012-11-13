@@ -5,19 +5,15 @@ cheerio = require 'cheerio'
 module.exports = (accountConfig, cb) ->
 
   browser = new Browser
-    debug: true
     runScripts: false
   browser.visit "https://www.paypal.com/", ->
 
     browser.fill "login_email", accountConfig.username
     browser.fill "login_password", accountConfig.password
     browser.pressButton "Log in", ->
-      console.log browser.text("title")
       browser.clickLink "click here", ->
-        console.log browser.text("span.balance strong")
 
         browser.clickLink "View all of my transactions", ->
-          console.log browser.text("title")
 
           parseResults()
 
@@ -41,5 +37,4 @@ module.exports = (accountConfig, cb) ->
 
         account.transactions.push transaction
 
-    console.log account
-    return cb([account])
+    return cb(null, [account])

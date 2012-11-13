@@ -22,6 +22,7 @@
     "cheerio": "*",
     "underscore": "*",
     "moment": "*",
-    "node_hash": "*"
+    "node_hash": "*",
+    "async": "*"
   }
 }

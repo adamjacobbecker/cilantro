@@ -6,7 +6,6 @@ moment = require 'moment'
 module.exports = (accountConfig, cb) ->
 
   browser = new Browser
-    debug: true
     runScripts: false
 
   browser.visit "https://www.mechanicsbank.com/m", ->
@@ -47,7 +46,9 @@ module.exports = (accountConfig, cb) ->
 
   find_transactions = (initialAccounts, browser) ->
 
-    if initialAccounts.length is 0 then return cb(accounts)
+    console.log "top o find_transactions"
+
+    if initialAccounts.length is 0 then return cb(null, accounts)
 
     account = initialAccounts.shift()
 
