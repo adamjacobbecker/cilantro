@@ -31,9 +31,9 @@ $(document).on "click", "#update-accounts-button", ->
     type: "GET"
     data:
       if Cilantro.dev then dev: true
-    success: (data) ->
-      Cilantro.Transactions.reset(data.transactions)
-      Cilantro.Accounts.reset(data.accounts)
+    success: ->
+      Cilantro.Transactions.fetch()
+      Cilantro.Accounts.fetch()
 
 $(document).on "click", "[data-toggle=flipper]", ->
   $(this).closest(".flip-container").toggleClass("flipped")

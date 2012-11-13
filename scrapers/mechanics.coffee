@@ -46,8 +46,6 @@ module.exports = (accountConfig, cb) ->
 
   find_transactions = (initialAccounts, browser) ->
 
-    console.log "top o find_transactions"
-
     if initialAccounts.length is 0 then return cb(null, accounts)
 
     account = initialAccounts.shift()

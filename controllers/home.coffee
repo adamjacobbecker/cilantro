@@ -8,6 +8,7 @@ crypto = require 'crypto'
 async = require 'async'
 
 exports.index = (req, res) ->
+
   scrapers = _.reject fs.readdirSync('scrapers'), (fileName) ->
     fileName.indexOf(".coffee") is -1
 
@@ -48,13 +49,10 @@ exports.sync = (req, res) ->
         runScraper(scraper, callback)
 
     async.parallel parallelScraperFunctions, (err, results) ->
-      console.log "finally we're saving"
-      async.map results, saveResults, (err, results) ->
+      async.map _.flatten(results), saveResults, (err, results) ->
         res.send("DONE!!!!")
 
   runScraper = (scraperParams, callback) ->
-    console.log 'run scraper called'
-
     if useDevMode
       callback(null, JSON.parse(fs.readFileSync("scrapers/example_output/#{scraperParams.file}.json", 'utf-8')))
     else
@@ -62,8 +60,6 @@ exports.sync = (req, res) ->
       scraper(scraperParams, callback)
 
   decryptScrapers = (encryptedScrapers, encryptionKey, match) ->
-    console.log 'decrypt scraper called'
-
     returnArray = []
 
     for scraper in encryptedScrapers
@@ -80,12 +76,7 @@ exports.sync = (req, res) ->
 
     return returnArray
 
-  saveResults = (results, callback) ->
-    if results.length is 0 then return callback()
-
-    result = results.shift()
-
-    console.log result
+  saveResults = (result, callback) ->
 
     Account.findOneAndUpdate
       name: result.name
@@ -97,24 +88,23 @@ exports.sync = (req, res) ->
 
     , (err, account) ->
 
-      console.log 'last dcalbac'
-      saveResults(results, callback)
+      saveTransaction = (transaction, callback) ->
+        Transaction.findOneAndUpdate
+          _account: account._id
+          bank_id: transaction.bank_id || (transaction.date + transaction.name)
+        ,
+          date: transaction.date
+          name: transaction.name
+          amount: parseFloat(transaction.amount.replace(",", ""))
+        ,
+          upsert: true
 
-    # saveTransaction = (transaction) ->
-    #   Transaction.findOneAndUpdate
-    #     _account: account._id
-    #     bank_id: transaction.bank_id || (transaction.date + transaction.name)
-    #   ,
-    #     date: transaction.date
-    #     name: transaction.name
-    #     amount: parseFloat(transaction.amount.replace(",", ""))
-    #   ,
-    #     upsert: true
+        , (err, transaction) ->
+          callback(null, transaction)
 
-    #   , (err, transaction) ->
-    #     callback(null, transaction)
+      async.map result.transactions, saveTransaction, (err, results) ->
+        callback(null, results)
 
 
 
-    # async.map result.transactions, saveTransaction, (err, results) ->
-    #   callback(null, results)
+
