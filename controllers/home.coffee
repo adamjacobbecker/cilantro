@@ -35,6 +35,8 @@ exports.sync = (req, res) ->
 
   useDevMode = if req.param('dev') then true else false
 
+  console.log "Starting Sync."
+
   Preference.findOrCreate (preference) ->
 
     if preference.encrypted_encryption_key isnt hash.md5(req.param('encryption_key'), req.param('encryption_key'))
