@@ -15,9 +15,7 @@ exports.create = (req, res) ->
       file: req.param('file')
       creds: {}
 
-    for key, val of req.body
-      if key is "file" or key is "encryption_key" then continue
-
+    for key, val of req.body.creds
       cipher = crypto.createCipher('aes256', req.param('encryption_key'))
       scraper.creds[key] = cipher.update(val, 'utf8', 'hex') + cipher.final('hex')
 

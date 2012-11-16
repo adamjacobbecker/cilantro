@@ -26,15 +26,15 @@ block content
             h5 Add Scraper
             form#new-scraper-form
               select(name="file")
-                each scraper in scrapers
-                  option(val="#{scraper}") #{scraper}
-              input(type="text", name="username", placeholder="Username", autocomplete="off")
-              input(type="password", name="password", placeholder="Password", autocomplete="off")
-              input(type="text", name="answer1", placeholder="Answer 1", autocomplete="off")
-              input(type="text", name="answer2", placeholder="Answer 2", autocomplete="off")
-              input(type="text", name="answer3", placeholder="Answer 3", autocomplete="off")
-              input(type="password", name="encryption_key", placeholder="Cilantro passphrase", autocomplete="off")
-              button.btn.btn-primary Save
+                option Select a scraper
+                for scraper, key in scrapers
+                  option(val="#{key}", data-fields="#{scraper.fields}") #{scraper.name}
+
+              fieldset#scraper-fields
+
+              .input-append
+                input.span8(type="password", name="encryption_key", placeholder="Cilantro passphrase", autocomplete="off")
+                button.btn.btn-primary Save
 
     .span9
       div#search-wrapper

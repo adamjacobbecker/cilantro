@@ -8,7 +8,7 @@ module.exports = (accountConfig, cb) ->
     runScripts: false
   browser.visit "https://www.paypal.com/", ->
 
-    browser.fill "login_email", accountConfig.username
+    browser.fill "login_email", accountConfig.email
     browser.fill "login_password", accountConfig.password
     browser.pressButton "Log in", ->
       browser.clickLink "click here", ->
@@ -36,5 +36,7 @@ module.exports = (accountConfig, cb) ->
           date: moment($(this).find(".dateInfo").text(), "MMM DD, YYYY").unix() * 1000
 
         account.transactions.push transaction
+
+    account.scraper_id = accountConfig.scraper_id
 
     return cb(null, [account])

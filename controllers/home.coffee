@@ -9,8 +9,10 @@ async = require 'async'
 
 exports.index = (req, res) ->
 
-  scrapers = _.reject fs.readdirSync('scrapers'), (fileName) ->
-    fileName.indexOf(".coffee") is -1
+  scrapers = JSON.parse(fs.readFileSync('./scrapers/scrapers.json'))
+
+  for scraper in scrapers
+    console.log scraper
 
   Preference.findOrCreate (preference) ->
 

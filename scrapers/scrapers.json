@@ -1,0 +1,13 @@
+{
+  "mechanics": {
+    "name": "Mechanics Bank",
+    "login_url": "http://www.mechanicsbank.com/m",
+    "fields": ["username", "password", "answer1", "answer2", "answer3"]
+  },
+
+  "paypal": {
+    "name": "Paypal",
+    "login_url": "http://www.paypal.com/",
+    "fields": ["email", "password"]
+  }
+}
