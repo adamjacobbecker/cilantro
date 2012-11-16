@@ -1,6 +1,9 @@
 Preference = require('../models').preference
+Account = require('../models').account
+Transaction = require('../models').transaction
 hash = require 'node_hash'
 crypto = require 'crypto'
+async = require 'async'
 
 exports.index = (req, res) ->
   Preference.findOrCreate (preference) ->
@@ -24,3 +27,24 @@ exports.create = (req, res) ->
 
     preference.save ->
       res.send scraper
+
+exports.destroy = (req, res) ->
+  Preference.findOrCreate (preference) ->
+    preference.scrapers.id(req.params.scraper).remove()
+    preference.save (err) ->
+      Account.find({_scraper: req.params.scraper}).exec (err, accounts) ->
+        async.map accounts, removeAccount, (err, results) ->
+          res.send("OK")
+
+  removeAccount = (account, callback) ->
+    Transaction.find {_account: account.id}, (err, transactions) ->
+      async.map transactions, removeTransaction, (err, results) ->
+        account.remove ->
+          callback()
+
+  removeTransaction = (transaction, callback) ->
+    transaction.remove ->
+      callback()
+
+# removeTransactions(account) for account in accounts
+

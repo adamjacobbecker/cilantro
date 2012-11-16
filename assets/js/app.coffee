@@ -56,9 +56,10 @@ $(document).on "submit", "#new-scraper-form", (e) ->
   $("#scraper-fields input").each ->
     creds[$(this).attr('name')] = $(this).val()
 
-
   Cilantro.Scrapers.create
-  # update me!
     file: $(this).find("select[name=file]").val()
     encryption_key: $(this).find("input[name=encryption_key]").val()
     creds: creds
+
+  $("#new-scraper-form input").val("")
+  $("#new-scraper-form select").val("Select a scraper").trigger("change")

@@ -1,11 +1,13 @@
 Cilantro.ScraperView = Backbone.View.extend
-  tagName: "tr"
+  tagName: "div"
+  className: "scraper"
 
   template: _.template """
-    <%= file %>
+    <%= file %> <button class="btn btn-danger btn-mini">x</button>
   """
 
-  # events:
+  events:
+    "click .btn-danger": "clear"
 
   initialize: ->
     @model.bind "change", @render, @

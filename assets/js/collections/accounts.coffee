@@ -17,12 +17,8 @@ AccountList = Backbone.Collection.extend
     view = new Cilantro.AccountView({model: account})
     $("#accounts-list").append view.render().el
 
-    view = new Cilantro.AccountAdminView({model: account})
-    $("#accounts-admin-list").append view.render().el
-
   addAll: ->
     $("#accounts-list").html('')
-    $("#accounts-admin-list").html('')
     @each @addOne
     @addAccountTotal()
     @addUpdateAccountsWrapper()

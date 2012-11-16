@@ -3,6 +3,7 @@ ScraperList = Backbone.Collection.extend
   url: "/scrapers"
 
   initialize: ->
+    @bind 'add', @addOne
     @bind 'reset', @addAll
 
   addAll: ->
@@ -11,7 +12,6 @@ ScraperList = Backbone.Collection.extend
 
   addOne: (scraper) ->
     view = new Cilantro.ScraperView({model: scraper})
-    html = view.render().el
-    $("#scrapers-list").append(html)
+    $("#scrapers-list").append view.render().el
 
 Cilantro.Scrapers = new ScraperList()

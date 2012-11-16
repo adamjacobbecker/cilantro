@@ -12,29 +12,25 @@ block content
             div.last-updated#update-accounts-wrapper
 
           .back
-            h3 accounts
-
-            ul#accounts-admin-list
-
-            a.btn(data-toggle="flipper")
-              i.icon-info-sign
-
             h3 scrapers
-
-            ul#scrapers-list
+            div#scrapers-list
 
             h5 Add Scraper
             form#new-scraper-form
               select(name="file")
                 option Select a scraper
                 for scraper, key in scrapers
-                  option(val="#{key}", data-fields="#{scraper.fields}") #{scraper.name}
+                  option(value="#{key}", data-fields="#{scraper.fields}") #{scraper.name}
 
               fieldset#scraper-fields
 
               .input-append
                 input.span8(type="password", name="encryption_key", placeholder="Cilantro passphrase", autocomplete="off")
                 button.btn.btn-primary Save
+
+            a.btn(data-toggle="flipper")
+              i.icon-info-sign
+
 
     .span9
       div#search-wrapper

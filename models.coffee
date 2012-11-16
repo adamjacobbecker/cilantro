@@ -108,4 +108,4 @@ preferenceSchema.statics.findOrCreate = (cb) ->
 exports.account = DB.model('Account', accountSchema)
 exports.transaction = DB.model('Transaction', transactionSchema)
 exports.preference = DB.model('Preference', preferenceSchema)
-exports.scraper = DB.model('Preference', scraperSchema)
+exports.scraper = DB.model('Scraper', scraperSchema)

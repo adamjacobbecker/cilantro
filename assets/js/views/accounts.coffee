@@ -23,34 +23,3 @@ Cilantro.AccountView = Backbone.View.extend
 
   clear: ->
     @model.clear()
-
-##### ADMIN ######
-
-Cilantro.AccountAdminView = Backbone.View.extend
-  tagName: "li"
-
-  template: _.template """
-    <%= name %>
-    <input type="text" name="name" value="<%= nickname %>" placeholder="nickname" />
-  """
-
-  events:
-    "blur input": "updateNickname"
-
-  initialize: ->
-    @model.bind "change", @render, @
-    @model.bind "destroy", @remove, @
-
-  updateNickname: (m) ->
-    @model.save
-      nickname: @$el.find("input[name=name]").val()
-    ,
-      success: ->
-        Cilantro.Transactions.fetchFiltered()
-
-  render: ->
-    @$el.html @template(@model.toJSON())
-    return @
-
-  clear: ->
-    @model.clear()

@@ -69,6 +69,7 @@ module.exports = (req, res) ->
 
     , (err, account) ->
 
+      console.log account
       saveTransaction = (transaction, callback) ->
         Transaction.findOneAndUpdate
           _account: account._id
