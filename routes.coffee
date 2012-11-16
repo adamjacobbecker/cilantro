@@ -5,7 +5,7 @@ exports.init = (app) ->
   app.get('/setkey', require('./controllers/home').setKey)
   app.post('/setkey', require('./controllers/home').setKeyPost)
 
-  app.get('/sync', require('./controllers/home').sync)
+  app.get('/sync', require('./controllers/sync'))
   app.get('/transactions', require('./controllers/transactions').index)
 
   app.resource('accounts', require('./controllers/accounts'), {load: loadAccount})

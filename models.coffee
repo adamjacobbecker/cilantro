@@ -5,6 +5,9 @@ moment = require 'moment'
 ###### Account #######
 
 accountSchema = new mongoose.Schema
+  _scraper:
+    type: mongoose.Schema.Types.ObjectId
+    ref: 'Scraper'
   name: String
   updated_at: Date
   nickname: String
@@ -74,11 +77,17 @@ transactionSchema.statics.json = (filters) ->
   return promise
 
 
+###### Scraper ######
+
+scraperSchema = new mongoose.Schema
+  file: String
+  creds: {}
+
 ###### Preference ######
 
 preferenceSchema = new mongoose.Schema
   encrypted_encryption_key: String
-  scrapers: []
+  scrapers: [scraperSchema]
 
 preferenceSchema.statics.findOrCreate = (cb) ->
   promise = new mongoose.Promise()
@@ -99,3 +108,4 @@ preferenceSchema.statics.findOrCreate = (cb) ->
 exports.account = DB.model('Account', accountSchema)
 exports.transaction = DB.model('Transaction', transactionSchema)
 exports.preference = DB.model('Preference', preferenceSchema)
+exports.scraper = DB.model('Preference', scraperSchema)

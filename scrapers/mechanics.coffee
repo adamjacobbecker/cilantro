@@ -71,6 +71,8 @@ module.exports = (accountConfig, cb) ->
 
           account.transactions.push transaction
 
+        account.scraper_id = accountConfig.scraper_id
+
         accounts.push account
 
         browser.visit $(".tapMenu a").eq(0).attr('href'), ->
