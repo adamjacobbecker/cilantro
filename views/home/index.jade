@@ -11,12 +11,15 @@ block content
 
             div.last-updated#update-accounts-wrapper
 
+            a.btn.pull-right(data-toggle="flipper")
+              i.icon-info-sign
+
           .back
-            h3 scrapers
             div#scrapers-list
 
-            h5 Add Scraper
-            form#new-scraper-form
+            h5
+              a(data-show="#new-scraper-form") Add Scraper
+            form.hide#new-scraper-form
               select(name="file")
                 option Select a scraper
                 for scraper, key in scrapers
@@ -28,7 +31,7 @@ block content
                 input.span8(type="password", name="encryption_key", placeholder="Cilantro passphrase", autocomplete="off")
                 button.btn.btn-primary Save
 
-            a.btn(data-toggle="flipper")
+            a.btn.pull-right(data-toggle="flipper")
               i.icon-info-sign
 
 

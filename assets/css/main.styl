@@ -1,5 +1,8 @@
 @import 'nib'
 
+a
+  cursor pointer
+
 .big-form
   padding 30px 0 10px
 
@@ -42,8 +45,33 @@
   border 1px solid #ddd
   border-radius(4px)
   padding 25px
+  width 240px
+
+.last-updated
+  text-align center
+  margin-bottom 10px
+
+#update-accounts-form
+  .update-accounts-passphrase
+    width 140px
+    display none
+
+  &.entering-passphrase
+    .last-updated
+      display none
+
+    .update-accounts-passphrase
+      display inline
+
+  button
+    &.updating
+      i
+        animation(spin 1s linear infinite)
+
 
 #accounts-list
+  margin-bottom 10px
+
   li
     &.active
       a
@@ -80,6 +108,28 @@
         right 8px
         opacity(.25)
 
+div.scraper
+  position relative
+
+  .action-links
+    display none
+    position absolute
+    top 0
+    right 0
+
+    i
+      opacity 0.5
+
+      &:hover
+        opacity 1
+
+  &:hover
+    .action-links
+      display block
+
+  .accounts-list
+    min-height 30px
+
 #search-wrapper
   padding-bottom 20px
 
@@ -98,11 +148,6 @@
     white-space nowrap
     width 400px
     max-width 400px
-
-#update-accounts-button
-  &.updating
-    i
-      animation(spin 1s linear infinite)
 
 @keyframes spin
   from

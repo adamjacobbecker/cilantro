@@ -21,19 +21,31 @@ $(document).on "click", "a[href^='/']", (e) ->
 
     return false
 
+$(document).on "click", "[data-show]", ->
+  $($(this).data('show')).toggle()
 
-$(document).on "click", "#update-accounts-button", ->
-  el = $(this)
-  el.addClass 'updating'
+$(document).on "submit", "#update-accounts-form", (e) ->
+  e.preventDefault()
 
-  $.ajax
-    url: "/sync?encryption_key=asdf"
-    type: "GET"
-    data:
-      if Cilantro.dev then dev: true
-    success: ->
-      Cilantro.Transactions.fetch()
-      Cilantro.Accounts.fetch()
+  $input = $(this).find("input")
+
+  if !$input.is(":visible")
+    $(this).addClass("entering-passphrase")
+    return $input.focus()
+
+  else
+    $(this).removeClass("entering-passphrase")
+    $button = $(this).find("button")
+    $button.addClass 'updating'
+
+    $.ajax
+      url: "/sync?encryption_key=#{$input.val()}"
+      type: "GET"
+      data:
+        if Cilantro.dev then dev: true
+      success: ->
+        Cilantro.Transactions.fetch()
+        Cilantro.Accounts.fetch()
 
 $(document).on "click", "[data-toggle=flipper]", ->
   $(this).closest(".flip-container").toggleClass("flipped")

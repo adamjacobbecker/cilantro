@@ -5,8 +5,9 @@ Cilantro.AppView = Backbone.View.extend
     Cilantro.Transactions.bind 'all', @render, @
     Cilantro.Scrapers.bind 'destroy', @fetchAccountsAndTransactions
 
-    Cilantro.Accounts.fetch()
-    Cilantro.Scrapers.fetch()
+    Cilantro.Accounts.fetch
+      success: ->
+        Cilantro.Scrapers.fetch()
     # Transactions are rendered by router.
 
     Cilantro.dev = @options.dev

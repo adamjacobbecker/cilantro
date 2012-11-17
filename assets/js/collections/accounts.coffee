@@ -42,13 +42,13 @@ AccountList = Backbone.Collection.extend
 
   addUpdateAccountsWrapper: ->
     html = """
-      Last updated #{moment(@lastUpdated()).fromNow()} &nbsp;
-      <a class="btn btn-primary" id="update-accounts-button">
-        <i class="icon-refresh icon-white"></i>
-      </a>
-      <a class="btn" data-toggle="flipper">
-        <i class="icon-info-sign"></i>
-      </a>
+      <form id="update-accounts-form">
+        <span class="last-updated">Updated #{moment(@lastUpdated()).fromNow()} &nbsp;</span>
+        <input type="password" class="update-accounts-passphrase" placeholder="Passphrase" />
+        <button class="btn btn-primary">
+          <i class="icon-refresh icon-white"></i>
+        </button>
+      </form>
     """
 
     $("#update-accounts-wrapper").html(html)
