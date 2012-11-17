@@ -29,6 +29,14 @@ $(document).on "submit", "#update-accounts-form", (e) ->
 
   $input = $(this).find("input")
 
+  handleError = (message) =>
+    $(this).removeClass("updating")
+    $(this).addClass("error entering-passphrase")
+    $input.val('').focus()
+    setTimeout =>
+      $(this).removeClass("error")
+    , 1000
+
   if !$input.is(":visible")
     $(this).addClass("entering-passphrase")
     return $input.focus()
@@ -36,6 +44,8 @@ $(document).on "submit", "#update-accounts-form", (e) ->
   else
     $(this).removeClass("entering-passphrase")
     $(this).addClass("updating")
+
+    if !$input.val() then return handleError()
 
     $.ajax
       url: "/sync?encryption_key=#{$input.val()}"
@@ -45,6 +55,8 @@ $(document).on "submit", "#update-accounts-form", (e) ->
       success: ->
         Cilantro.Transactions.fetch()
         Cilantro.Accounts.fetch()
+
+      error: handleError
 
 $(document).on "click", "[data-toggle=flipper]", ->
   $(this).closest(".flip-container").toggleClass("flipped")

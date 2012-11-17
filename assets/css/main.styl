@@ -59,6 +59,10 @@ a
   .updating-text
     display none
 
+  .error-text
+    text-align center
+    display none
+
   &.entering-passphrase
     .last-updated
       display none
@@ -76,6 +80,10 @@ a
     button
       i
         animation(spin 1s linear infinite)
+
+  &.error
+    .error-text
+      display block
 
 
 #accounts-list
