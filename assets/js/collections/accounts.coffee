@@ -44,6 +44,7 @@ AccountList = Backbone.Collection.extend
     html = """
       <form id="update-accounts-form">
         <span class="last-updated">Updated #{moment(@lastUpdated()).fromNow()} &nbsp;</span>
+        <span class="updating-text">Updating...</span>
         <input type="password" class="update-accounts-passphrase" placeholder="Passphrase" />
         <button class="btn btn-primary">
           <i class="icon-refresh icon-white"></i>

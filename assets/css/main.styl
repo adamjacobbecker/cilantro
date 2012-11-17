@@ -56,6 +56,9 @@ a
     width 140px
     display none
 
+  .updating-text
+    display none
+
   &.entering-passphrase
     .last-updated
       display none
@@ -63,8 +66,14 @@ a
     .update-accounts-passphrase
       display inline
 
-  button
-    &.updating
+  &.updating
+    .last-updated
+      display none
+
+    .updating-text
+      display inline
+
+    button
       i
         animation(spin 1s linear infinite)
 

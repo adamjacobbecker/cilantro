@@ -35,8 +35,7 @@ $(document).on "submit", "#update-accounts-form", (e) ->
 
   else
     $(this).removeClass("entering-passphrase")
-    $button = $(this).find("button")
-    $button.addClass 'updating'
+    $(this).addClass("updating")
 
     $.ajax
       url: "/sync?encryption_key=#{$input.val()}"
