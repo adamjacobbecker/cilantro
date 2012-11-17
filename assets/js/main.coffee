@@ -43,9 +43,9 @@ $(document).on "submit", "#update-accounts-form", (e) ->
 
   else
     $(this).removeClass("entering-passphrase")
-    $(this).addClass("updating")
+    if !$input.val() then return
 
-    if !$input.val() then return handleError()
+    $(this).addClass("updating")
 
     $.ajax
       url: "/sync?encryption_key=#{$input.val()}"
