@@ -81,6 +81,7 @@ transactionSchema.statics.json = (filters) ->
 
 scraperSchema = new mongoose.Schema
   file: String
+  fields: String
   creds: {}
 
 ###### Preference ######

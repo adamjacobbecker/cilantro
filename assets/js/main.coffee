@@ -21,9 +21,6 @@ $(document).on "click", "a[href^='/']", (e) ->
 
     return false
 
-$(document).on "click", "[data-show]", ->
-  $($(this).data('show')).toggle()
-
 $(document).on "submit", "#update-accounts-form", (e) ->
   e.preventDefault()
 
@@ -67,11 +64,7 @@ $(document).on "change", "#new-scraper-form select", ->
 
   fields = $(this).find("option:selected").data('fields').split(',')
 
-  htmlStr = ""
-  for field in fields
-    htmlStr += """<input type="#{if field is 'password' then 'password' else 'text'}" name="#{field}" placeholder="#{field}" />"""
-
-  $("#scraper-fields").html(htmlStr)
+  $("#scraper-fields").html Cilantro.Scrapers.formForFields(fields)
 
 $(document).on "submit", "#new-scraper-form", (e) ->
   e.preventDefault()
@@ -81,6 +74,7 @@ $(document).on "submit", "#new-scraper-form", (e) ->
     creds[$(this).attr('name')] = $(this).val()
 
   Cilantro.Scrapers.create
+    fields: $(this).find("select[name=file]").find("option:selected").data('fields')
     file: $(this).find("select[name=file]").val()
     encryption_key: $(this).find("input[name=encryption_key]").val()
     creds: creds

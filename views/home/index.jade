@@ -17,19 +17,14 @@ block content
           .back
             div#scrapers-list
 
-            h5
-              a(data-show="#new-scraper-form") Add Scraper
-            form.hide#new-scraper-form
+            h5 Add Scraper
+            form#new-scraper-form
               select(name="file")
                 option Select a scraper
                 for scraper, key in scrapers
                   option(value="#{key}", data-fields="#{scraper.fields}") #{scraper.name}
 
               fieldset#scraper-fields
-
-              .input-append
-                input.span8(type="password", name="encryption_key", placeholder="Cilantro passphrase", autocomplete="off")
-                button.btn.btn-primary Save
 
             a.btn.pull-right(data-toggle="flipper")
               i.icon-info-sign

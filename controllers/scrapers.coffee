@@ -16,6 +16,7 @@ exports.create = (req, res) ->
 
     scraper =
       file: req.param('file')
+      fields: req.param('fields')
       creds: {}
 
     for key, val of req.body.creds
@@ -24,6 +25,22 @@ exports.create = (req, res) ->
 
     console.log scraper
     preference.scrapers.push scraper
+
+    preference.save ->
+      res.send scraper
+
+exports.update = (req, res) ->
+  Preference.findOrCreate (preference) ->
+    scraper = preference.scrapers.id(req.params.scraper)
+
+    if hash.md5(req.param('encryption_key'), req.param('encryption_key')) isnt preference.encrypted_encryption_key
+      return res.send(400, "Wrong passphrase!")
+
+    scraper.creds = {}
+
+    for key, val of req.body.creds
+      cipher = crypto.createCipher('aes256', req.param('encryption_key'))
+      scraper.creds[key] = cipher.update(val, 'utf8', 'hex') + cipher.final('hex')
 
     preference.save ->
       res.send scraper

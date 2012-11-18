@@ -7,7 +7,7 @@ Cilantro.ScraperAccountView = Backbone.View.extend
       <span class="nickname-name"><%= nickname || name %></span>
     </div>
     <div class="edit-only">
-      <input type="text" name="nickname" value="<%= nickname %>" placeholder="Nickname" />
+      <input type="text" name="nickname" value="<%= nickname %>" placeholder="Nickname for <%= name %>" />
     </div>
   """
 
