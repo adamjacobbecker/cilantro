@@ -49,9 +49,7 @@ AccountList = Backbone.Collection.extend
         <button class="btn btn-primary">
           <i class="icon-refresh icon-white"></i>
         </button>
-        <div class="error-text">
-          Sorry, an error occurred.
-        </div>
+        <div class="error-text"></div>
       </form>
     """
 

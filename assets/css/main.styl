@@ -128,6 +128,13 @@ a
 div.scraper
   position relative
 
+  .no-accounts-text
+    display none
+
+  &.no-accounts
+    .no-accounts-text
+      display block
+
   .action-links
     display none
     position absolute
@@ -143,9 +150,6 @@ div.scraper
   &:hover
     .action-links
       display block
-
-  .accounts-list
-    min-height 30px
 
 #search-wrapper
   padding-bottom 20px

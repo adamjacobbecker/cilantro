@@ -16,7 +16,7 @@ module.exports = (req, res) ->
   Preference.findOrCreate (preference) ->
 
     if preference.encrypted_encryption_key isnt hash.md5(req.param('encryption_key'), req.param('encryption_key'))
-      return res.send(400, "Wrong passphrase.")
+      return res.send(400, "Incorrect passphrase.")
 
     scrapers = decryptScrapers(preference.scrapers, req.param('encryption_key'), req.param('match'))
 
