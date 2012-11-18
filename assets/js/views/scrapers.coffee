@@ -35,8 +35,8 @@ Cilantro.ScraperView = Backbone.View.extend
     if accounts.length is 0 then @$el.addClass('no-accounts')
 
   renderEditForm: ->
-    fields = @model.attributes.fields.split(",")
-    @$el.find(".edit-form").append Cilantro.Scrapers.formForFields(fields)
+    fields = @model.attributes.fields.split("|")
+    @$el.find(".edit-form").append Cilantro.Scrapers.formForFields(fields, @model.attributes.additionalFields)
 
   toggleEditing: ->
     @$el.toggleClass("editing")

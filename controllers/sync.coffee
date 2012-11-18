@@ -50,7 +50,12 @@ module.exports = (req, res) ->
 
       _.each scraper.creds, (val, key) ->
         decipher = crypto.createDecipher('aes256', encryptionKey)
-        returnScraper[key] = decipher.update(val, 'hex', 'utf8') + decipher.final('utf8')
+        deciphered = decipher.update(val, 'hex', 'utf8') + decipher.final('utf8')
+
+        if key is "additionalFields"
+          returnScraper.additionalFields = JSON.parse(deciphered)
+        else
+          returnScraper[key] = deciphered
 
       returnArray.push returnScraper
 
@@ -62,14 +67,12 @@ module.exports = (req, res) ->
       _scraper: result.scraper_id
       name: result.name
     ,
-      balance: parseFloat(result.balance.replace(",", ""))
+      balance: parseFloat(result.balance.replace(/\,|\$/g, ""))
       updated_at: Date.now()
     ,
       upsert: true
 
     , (err, account) ->
-
-      console.log account
       saveTransaction = (transaction, callback) ->
         Transaction.findOneAndUpdate
           _account: account._id

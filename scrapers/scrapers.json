@@ -9,5 +9,12 @@
     "name": "Paypal",
     "login_url": "http://www.paypal.com/",
     "fields": ["email", "password"]
+  },
+
+  "usbank": {
+    "name": "US Bank",
+    "login_url": "https://m.usbank.com/mobile-web/index.asp?msg=",
+    "fields": [ "Personal ID","Password" ],
+    "additionalFields": true
   }
 }

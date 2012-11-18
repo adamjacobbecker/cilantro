@@ -14,14 +14,23 @@ ScraperList = Backbone.Collection.extend
     view = new Cilantro.ScraperView({model: scraper})
     $("#scrapers-list").append view.render().el
 
-  formForFields: (fields) ->
+  formForFields: (fields, additionalFields) ->
     htmlStr = ""
 
     for field in fields
-      htmlStr += """<input type="#{if field is 'password' then 'password' else 'text'}" name="#{field}" placeholder="#{field}" />"""
+      htmlStr += """<input type="#{if field.toLowerCase() is 'password' then 'password' else 'text'}" name="#{field}" placeholder="#{field}" />"""
+
+
+    additionalFieldsHtml = ""
+
+    if additionalFields and additionalFields isnt "undefined" then additionalFieldsHtml = """
+      <textarea name="additional_fields"></textarea>
+    """
 
     return """
       #{htmlStr}
+
+      #{additionalFieldsHtml}
 
       <div class="input-append">
         <input class="span8" type="password" name="encryption_key" placeholder="Cilantro passphrase" autocomplete="off" />

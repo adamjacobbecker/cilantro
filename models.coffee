@@ -18,7 +18,10 @@ accountSchema = new mongoose.Schema
   transactions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Transaction' }]
 
 accountSchema.virtual('balance_pretty').get ->
-  return "$#{this.balance.toFixed(2)}"
+  if this.amount > 0
+    return "$#{this.balance.toFixed(2)}"
+  else
+    return "-$#{Math.abs(this.balance).toFixed(2)}"
 
 accountSchema.statics.json = (filters) ->
   promise = new mongoose.Promise()

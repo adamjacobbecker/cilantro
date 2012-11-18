@@ -22,7 +22,7 @@ block content
               select(name="file")
                 option Select a scraper
                 for scraper, key in scrapers
-                  option(value="#{key}", data-fields="#{scraper.fields}") #{scraper.name}
+                  option(value="#{key}", data-fields="#{scraper.fields.join('|')}", data-additional-fields="#{scraper.additionalFields}") #{scraper.name}
 
               fieldset#scraper-fields
 

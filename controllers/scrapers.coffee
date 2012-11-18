@@ -17,6 +17,7 @@ exports.create = (req, res) ->
     scraper =
       file: req.param('file')
       fields: req.param('fields')
+      additionalFields: JSON.stringify(JSON.parse(req.param('additionalFields')))
       creds: {}
 
     for key, val of req.body.creds

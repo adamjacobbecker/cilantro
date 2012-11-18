@@ -62,20 +62,28 @@ $(document).on "click", "[data-toggle=flipper]", ->
 $(document).on "change", "#new-scraper-form select", ->
   if $(this).val() is "Select a scraper" then return $("#scraper-fields").html('')
 
-  fields = $(this).find("option:selected").data('fields').split(',')
+  option = $(this).find("option:selected")
+  fields = option.data('fields').split('|')
+  additionalFields = option.data('additional-fields')
 
-  $("#scraper-fields").html Cilantro.Scrapers.formForFields(fields)
+  $("#scraper-fields").html Cilantro.Scrapers.formForFields(fields, additionalFields)
 
 $(document).on "submit", "#new-scraper-form", (e) ->
   e.preventDefault()
+
+  hasAdditionalFields = if $(this).find("select[name=file]").find("option:selected").data('additional-fields') then true else false
 
   creds = {}
   $("#scraper-fields input").each ->
     creds[$(this).attr('name')] = $(this).val()
 
+  if hasAdditionalFields
+    creds["additionalFields"] = $(this).find("textarea").val()
+
   Cilantro.Scrapers.create
     fields: $(this).find("select[name=file]").find("option:selected").data('fields')
     file: $(this).find("select[name=file]").val()
+    additionalFields: hasAdditionalFields
     encryption_key: $(this).find("input[name=encryption_key]").val()
     creds: creds
   ,

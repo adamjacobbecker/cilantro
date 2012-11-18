@@ -35,11 +35,17 @@ AccountList = Backbone.Collection.extend
     balance = 0
     @models.map (a) ->
       balance += a.attributes.balance
+
+    if balance > 0
+      balanceText = "$#{balance}"
+    else
+      balanceText = "-$#{Math.abs(balance)}"
+
     html = """
       <li>
         <a href="/">
           <span class="account-name">All Accounts</span>
-          <span class="account-balance">$#{balance}</span>
+          <span class="account-balance">#{balanceText}</span>
           <i class="icon-chevron-right"></i>
         </a>
       </li>
