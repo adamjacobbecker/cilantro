@@ -13,6 +13,12 @@ AccountList = Backbone.Collection.extend
       if d.getTime() > max then max = d.getTime()
     return max
 
+  lastUpdatedText: ->
+    if @lastUpdated() isnt 0
+      "Updated #{moment(@lastUpdated()).fromNow()}"
+    else
+      "Not yet synced."
+
   addOne: (account) ->
     view = new Cilantro.AccountView({model: account})
     $("#accounts-list").append view.render().el
@@ -43,7 +49,7 @@ AccountList = Backbone.Collection.extend
   addUpdateAccountsWrapper: ->
     html = """
       <form id="update-accounts-form">
-        <span class="last-updated">Updated #{moment(@lastUpdated()).fromNow()} &nbsp;</span>
+        <span class="last-updated">#{@lastUpdatedText()} &nbsp;</span>
         <span class="updating-text">Updating...</span>
         <input type="password" class="update-accounts-passphrase" placeholder="Passphrase" />
         <button class="btn btn-primary">
