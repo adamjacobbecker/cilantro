@@ -18,7 +18,7 @@ accountSchema = new mongoose.Schema
   transactions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Transaction' }]
 
 accountSchema.virtual('balance_pretty').get ->
-  if this.amount > 0
+  if this.balance > 0
     return "$#{this.balance.toFixed(2)}"
   else
     return "-$#{Math.abs(this.balance).toFixed(2)}"

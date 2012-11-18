@@ -53,7 +53,7 @@ module.exports = (req, res) ->
         deciphered = decipher.update(val, 'hex', 'utf8') + decipher.final('utf8')
 
         if key is "additionalFields"
-          returnScraper.additionalFields = JSON.parse(deciphered)
+          if deciphered isnt "" then returnScraper.additionalFields = JSON.parse(deciphered)
         else
           returnScraper[key] = deciphered
 
